@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список курсів</title>
+</head>
+<body>
+    <h1>Список курсів</h1>
+        <ul>
+            {% for course in courses %}
+                <li>
+                    <a href="{% url 'course_detail' course.id %}">{{ course.name }}</a>
+                    <a href="{% url 'delete_course' course.id %}">Видалити</a>
+                </li>
+            {% endfor %}
+        </ul>
+    <a href="{% url 'add_course' %}">Додати новий курс</a>
+</body>
+</html>
