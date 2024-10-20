@@ -30,8 +30,17 @@ def course_list(request):
 
 def course_detail(request, course_id):
     course = get_object_or_404(Course, id=course_id)
-    return render(request, 'courses/course_detail.html', {'course': course})
 
+    if request.method == 'POST':
+        points = request.POST.getlist('points')  # Отримання всіх вибраних пунктів
+        # Оновлення стану завершення для кожного пункту
+        for point in course.points.all():
+            point.completed = str(point.id) in points  # Встановлення статусу на основі вибору чекбоксів
+            point.save()  # Збереження змін
+
+        return redirect('course_list')  # Перенаправлення на список курсів
+
+    return render(request, 'courses/course_detail.html', {'course': course})
 def delete_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)  # Отримати курс або 404, якщо не знайдено
     course.delete()  # Видалення курсу

@@ -7,13 +7,15 @@
 <body>
     <h1>{{ course.name }}</h1>
     <p>Пункти курсу:</p>
-    <form method="POST" action="{% url 'your_action_url' %}">  <!-- Заміна 'your_action_url' на фактичну URL-адресу для обробки -->
+
+    <form method="post">
         {% csrf_token %}
         <ul>
             {% for point in course.points.all %}
                 <li>
                     <label>
-                        <input type="checkbox" name="points" value="{{ point.id }}">
+                        <input type="checkbox" name="points" value="{{ point.id }}"
+                            {% if point.completed %} checked {% endif %}>
                         {{ point.content }}
                     </label>
                 </li>
@@ -23,6 +25,7 @@
         </ul>
         <button type="submit">Зберегти вибір</button>
     </form>
+
     <a href="{% url 'course_list' %}">Повернутися до списку курсів</a>
 </body>
 </html>

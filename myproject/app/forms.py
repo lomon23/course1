@@ -4,7 +4,7 @@ from .models import Course, Point
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['name']
+        fields = ['name','deadline']
 
 class CoursePointForm(forms.ModelForm):
     class Meta:

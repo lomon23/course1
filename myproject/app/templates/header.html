@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мій Сайт{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <p>Логотип</p>
+            </div>
+            <div class="content">
+                <a class="header_button" href="#">Головна</a>
+                <a class="header_button" href="#">Про нас</a>
+                <a class="header_button" href="#">Послуги</a>
+                <a class="header_button" href="#">Контакти</a>
+                <a class="header_button" href="#">Блог</a>
+            </div>
+            <div class="login">
+                <a class="login_button" href="#">Log In</a>
+                <a class="logout_button" href="#">Log Out</a>
+            </div>
+        </div>
+    </header>
+</body>
+</html>
