@@ -49,6 +49,7 @@
             {% for course in courses %}
                 <div class="col-md-4"> <!-- Картки на 4 колонки -->
                     <div class="course-card">
+                        <p>бебра</p>
                         <h5><a href="{% url 'course_detail' course.id %}">{{ course.name }}</a></h5>
                         <p>Дедлайн: {{ course.deadline }}</p> <!-- Відображення дедлайну -->
                         <a href="{% url 'delete_course' course.id %}" class="btn btn-danger">
