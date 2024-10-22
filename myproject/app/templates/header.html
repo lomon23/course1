@@ -15,15 +15,21 @@
                 <p>Логотип</p>
             </div>
             <div class="content">
-                <a class="header_button" href="#">Головна</a>
-                <a class="header_button" href="#">Про нас</a>
-                <a class="header_button" href="#">Послуги</a>
-                <a class="header_button" href="#">Контакти</a>
-                <a class="header_button" href="#">Блог</a>
+                <a class="header_button" href="/">Головна</a>
+                <a class="header_button" href="/about/">Про нас</a>
+                <a class="header_button" href="/services/">Послуги</a>
+                <a class="header_button" href="/contacts/">Контакти</a>
+                <a class="header_button" href="/blog/">Блог</a>
             </div>
             <div class="login">
-                <a class="login_button" href="#">Log In</a>
-                <a class="logout_button" href="#">Log Out</a>
+                {% if request.session.user_id %}
+                    <!-- Якщо користувач залогінений, показуємо кнопку Log Out -->
+                    <a class="logout_button" href="/logout/">Log Out</a>
+                {% else %}
+                    <!-- Якщо користувач не залогінений, показуємо кнопки Log In та Register -->
+                    <a class="login_button" href="/login/">Log In</a>
+                    <a class="register_button" href="/register/">Register</a>
+                {% endif %}
             </div>
         </div>
     </header>
