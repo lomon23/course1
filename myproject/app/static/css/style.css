@@ -1,80 +1,21 @@
+/* Загальні стилі для програми */
 body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f0f0;
-      display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    font-family: 'Arial', sans-serif; /* Встановлення шрифту */
+    background-color: #f0f0f0; /* Світло-сірий фон */
+    margin: 0; /* Відсутні зовнішні відступи */
+    padding: 0; /* Відсутні внутрішні відступи */
+    color: #333; /* Темний текст */
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 30px; /* Зменшено відступи для звуження */
-    background-color: #d3d3d3; /* Світло-сірий колір хедера */
-    position: relative;
+/* Заголовки */
+h1 {
+    text-align: center; /* Центрування заголовків */
+    margin-top: 20px; /* Відступ зверху */
 }
 
-.logo p {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333; /* Колір тексту логотипу */
+/* Вирівнювання всередині контейнера */
+.container {
+    max-width: 1200px; /* Максимальна ширина */
+    margin: 0 auto; /* Центрування контейнера */
+    padding: 20px; /* Внутрішні відступи */
 }
-
-.content {
-    display: flex;
-    gap: 15px; /* Відстань між кнопками зменшена */
-}
-
-.header_button {
-    color: #333; /* Чорний колір тексту кнопок */
-    font-weight: bold;
-    position: relative;
-    padding: 10px;
-    text-decoration: none; /* Забрано текстове підкреслення */
-}
-
-.header_button:hover {
-    /* Немає зміни кольору чи підкреслення при наведенні */
-}
-
-.header_button::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -5px; /* Відстань до тексту */
-    height: 3px; /* Товщина лінії */
-    background: #8ba2f0; /* Синій колір лінії */
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.header_button:hover::after {
-    transform: scaleX(1); /* Показати лінію при наведенні */
-}
-
-.login {
-    display: flex;
-    gap: 10px; /* Відстань між кнопками логіну та виходу зменшена */
-}
-
-.login_button,
-.logout_button {
-    color: #333; /* Колір тексту кнопок */
-    font-weight: bold;
-    padding: 8px 12px; /* Зменшено відступи */
-    border: 2px solid #333; /* Колір рамки */
-    border-radius: 5px; /* Кути рамки */
-    transition: background-color 0.3s ease, color 0.3s ease;
-    text-decoration: none; /* Забрано текстове підкреслення */
-}
-
-.login_button:hover,
-.logout_button:hover {
-    background-color: #fff; /* Колір фону при наведенні */
-    color: #333; /* Чорний колір тексту при наведенні */
-}
-/*====================footer-===============
-

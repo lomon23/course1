@@ -1,99 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <title>Додати новий курс</title>
+    <link rel="stylesheet" href="{% static 'css/add_course.css' %}">
+
     <script>
         function addPointField() {
             const container = document.getElementById('points-container');
             const pointDiv = document.createElement('div');
-            pointDiv.classList.add('point');
+            pointDiv.classList.add('input-container', 'point');
 
             const pointInput = document.createElement('input');
             pointInput.type = 'text';
-            pointInput.name = 'points';  // Всі поля з однією назвою, щоб отримати їх у списку
+            pointInput.name = 'points';
             pointInput.placeholder = 'Введіть назву пункту курсу';
             pointInput.required = true;
 
-            const addMaterialButton = document.createElement('button');
-            addMaterialButton.textContent = 'Додати підпункт';
-            addMaterialButton.type = 'button';
-            addMaterialButton.onclick = function() {
-                addMaterialField(pointDiv);
-            };
-
-            const materialsContainer = document.createElement('div');
-            materialsContainer.classList.add('materials-container');
-
             pointDiv.appendChild(pointInput);
-            pointDiv.appendChild(addMaterialButton);
-            pointDiv.appendChild(materialsContainer);
             container.appendChild(pointDiv);
-        }
-
-        function addMaterialField(pointDiv) {
-            const materialsContainer = pointDiv.querySelector('.materials-container');
-            const materialDiv = document.createElement('div');
-
-            const materialSelect = document.createElement('select');
-            materialSelect.name = 'material_types'; // Назва для матеріалів
-
-            const options = ['---', 'PDF', 'URL', 'Текст']; // Типи матеріалів
-            options.forEach(option => {
-                const opt = document.createElement('option');
-                opt.value = option;
-                opt.textContent = option;
-                materialSelect.appendChild(opt);
-            });
-
-            const materialInput = document.createElement('textarea');
-            materialInput.name = 'materials';  // Назва для матеріалів
-            materialInput.placeholder = 'Введіть матеріал';
-            materialInput.style.display = 'none'; // Сховане поле
-
-            const toggleInput = function() {
-                if (materialSelect.value === 'Текст') {
-                    materialInput.style.display = 'block'; // Відобразити текстове поле
-                } else {
-                    materialInput.style.display = 'none'; // Сховати текстове поле
-                }
-            };
-
-            materialSelect.onchange = toggleInput;
-            toggleInput(); // Ініціалізуємо видимість поля
-
-            const removeMaterialButton = document.createElement('button');
-            removeMaterialButton.textContent = 'Видалити підпункт';
-            removeMaterialButton.type = 'button';
-            removeMaterialButton.onclick = function() {
-                materialsContainer.removeChild(materialDiv); // Видалення підпункту
-            };
-
-            materialDiv.appendChild(materialSelect);
-            materialDiv.appendChild(materialInput);
-            materialDiv.appendChild(removeMaterialButton);
-            materialsContainer.appendChild(materialDiv);
         }
     </script>
 </head>
 <body>
-    <h1>Додати новий курс</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="course_name">Назва курсу:</label><br>
-        {{ course_form.name }}<br><br>
+{% block content %}
+<div class="form-container">
+        <h1>Додати новий курс</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="course_name">Назва курсу:</label>
+            <div class="input-container">
+                {{ course_form.name }}
+            </div>
 
-        <label for="course_date">Дата курсу:</label><br>
-        <input type="date" name="course_date" id="course_date"><br><br>
+            <label for="deadline">Дедлайн:</label>
+            <div class="input-container">
+                <input type="text" name="deadline" id="deadline" placeholder="YYYY-MM-DD" required>
+            </div>
 
-        <div id="points-container">
-            <label>Пункти курсу:</label><br>
-            <input type="text" name="points" placeholder="Введіть пункт курсу" required><br>
-        </div>
+            <div id="points-container">
+                <label>Пункти курсу:</label>
+                <div class="input-container">
+                    <input type="text" name="points" placeholder="Введіть пункт курсу" required>
+                </div>
+            </div>
 
-        <button type="button" onclick="addPointField()">Додати пункт</button><br><br>
-        <button type="submit">Зберегти курс</button>
-    </form>
-    <a href="{% url 'course_list' %}">Повернутися до списку курсів</a>
+            <button type="button" class="add-point-button" onclick="addPointField()">Додати пункт</button>
+            <button type="submit" class="submit-button">Зберегти курс</button>
+        </form>
+        <a href="{% url 'course_list' %}" class="back-link">Повернутися до списку курсів</a>
+    </div>
+{% endblock %}
 </body>
 </html>

@@ -1,47 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ course.name }}</title>
-    <style>
-        .materials {
-            display: none;
-            margin-left: 20px;
-        }
-        .toggle-button {
-            cursor: pointer;
-            color: blue;
-        }
-    </style>
-    <script>
-        function toggleMaterials(materialsId) {
-            const materialsContainer = document.getElementById(materialsId);
-            if (materialsContainer.style.display === 'none') {
-                materialsContainer.style.display = 'block';
-            } else {
-                materialsContainer.style.display = 'none';
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="{% static 'css/course_detail.css' %}">
 </head>
 <body>
-    <h1>{{ course.name }}</h1>
+{% block content %}
+<h1>{{ course.name }}</h1>
     <p>Пункти курсу:</p>
-
-    <form method="post">
+    <form method="POST" action="{% url 'course_detail' %}">  <!-- Заміна 'your_action_url' на фактичну URL-адресу для обробки -->
         {% csrf_token %}
         <ul>
             {% for point in course.points.all %}
                 <li>
-                    <span class="toggle-button" onclick="toggleMaterials('materials-{{ point.id }}')">➡️ {{ point.content }}</span>
-                    <div id="materials-{{ point.id }}" class="materials">
-                        {% if point.material_type %}
-                            <p>Тип матеріалу: {{ point.material_type }}</p>
-                            <p>{{ point.content }}</p>  <!-- Припускаємо, що контент матеріалу зберігається тут -->
-                        {% else %}
-                            <p>Матеріалів немає</p>
-                        {% endif %}
-                    </div>
+                    <label>
+                        <input type="checkbox" name="points" value="{{ point.id }}">
+                        {{ point.content }}
+                    </label>
                 </li>
             {% empty %}
                 <li>Пункти відсутні</li>
@@ -49,7 +29,9 @@
         </ul>
         <button type="submit">Зберегти вибір</button>
     </form>
-
     <a href="{% url 'course_list' %}">Повернутися до списку курсів</a>
+
+{% endblock %}
+
 </body>
 </html>

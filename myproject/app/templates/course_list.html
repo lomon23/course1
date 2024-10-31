@@ -1,72 +1,36 @@
-
-
+{% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <title>Список курсів</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/course_list.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <style>
-        .course-card {
-            border: 1px solid #ccc; /* Межа картки */
-            border-radius: 10px; /* Заокруглення */
-            padding: 20px; /* Внутрішні відступи */
-            margin: 10px; /* Відстань між картками */
-            text-align: center; /* Центрування тексту */
-        }
-
-        .add-course-btn {
-            position: fixed; /* Фіксоване позиціонування */
-            bottom: 20px; /* Відстань віднизу */
-            right: 20px; /* Відстань від правого краю */
-            width: 60px; /* Ширина кнопки */
-            height: 60px; /* Висота кнопки */
-            border-radius: 50%; /* Заокруглення для круглої кнопки */
-            background-color: #8ba2f0; /* Світло-синій фон */
-            color: white; /* Колір тексту */
-            display: flex; /* Для центрованого вмісту */
-            align-items: center; /* Вертикальне вирівнювання */
-            justify-content: center; /* Горизонтальне вирівнювання */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь */
-            font-size: 24px; /* Розмір шрифту */
-        }
-
-        .add-course-btn:hover {
-            background-color: #6b92e8; /* Колір при наведенні */
-        }
-    </style>
 </head>
 <body>
-{% extends 'base.html' %}
-
-{% block title %}Список курсів{% endblock %}
-
 {% block content %}
     <h1>Список курсів</h1>
-    <div class="container">
-        <div class="row">
-            {% for course in courses %}
-                <div class="col-md-4"> <!-- Картки на 4 колонки -->
-                    <div class="course-card">
-                        <p>марта</p>
-                        <h5><a href="{% url 'course_detail' course.id %}">{{ course.name }}</a></h5>
-                        <p>Дедлайн: {{ course.deadline }}</p> <!-- Відображення дедлайну -->
-                        <a href="{% url 'delete_course' course.id %}" class="btn btn-danger">
-                            <i class="bi bi-trash"></i> Видалити
+    <div class="course-list">
+        {% for course in courses %}
+            <div class="course-card">
+                <div class="course-header">
+                    <h3>{{ course.name }}</h3>
+                </div>
+                <div class="course-details">
+                    <p>Дедлайн: {{ course.deadline }}</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                        <a href="{% url 'course_detail' course.id %}" class="course-button">Переглянути курс</a>
+                        <a href="{% url 'delete_course' course.id %}" class="delete-button" title="Видалити">
+                            <i class="bi bi-trash"></i>
                         </a>
                     </div>
                 </div>
-            {% empty %}
-                <div class="col-md-12">
-                    <p>Курси відсутні</p>
-                </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
-    <a href="{% url 'add_course' %}" class="add-course-btn">
-        <i class="bi bi-plus"></i>
-    </a>
+    <a href="{% url 'add_course' %}" class="add-course-button" title="Додати курс">+</a>
 {% endblock %}
+
 </body>
 </html>
